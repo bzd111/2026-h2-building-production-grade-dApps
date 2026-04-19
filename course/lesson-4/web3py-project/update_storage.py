@@ -1,5 +1,8 @@
 from web3 import Web3
 import json
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def get_abi(contract_name):
     try:
@@ -64,9 +67,9 @@ if __name__ == "__main__":
     import asyncio
 
     config = {
-        "rpc_url": "http://localhost:8545",
-        "private_key": "0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133",
-        "contract_address": "0xe78A45427B4797ae9b1852427476A956037B5bC2",
+        "rpc_url": "https://services.polkadothub-rpc.com/testnet",
+        "private_key": os.getenv("PRIVATE_KEY"),
+        "contract_address": "0x664Aa311Fd99D763456c9B467489005f3dFcF862",
     }
 
     asyncio.run(update_storage(config))

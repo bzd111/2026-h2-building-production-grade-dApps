@@ -5,8 +5,11 @@ import json
 import os
 import time
 from pathlib import Path
+from dotenv import load_dotenv
 from web3 import AsyncHTTPProvider, AsyncWeb3, Web3
 from web3.exceptions import TransactionNotFound
+
+load_dotenv()
 
 ROOT = Path(__file__).resolve().parent
 ABI_PATH = ROOT / "abis" / "Storage.json"
@@ -128,9 +131,10 @@ async def set_stored(
 async def run() -> None:
     if not ABI_PATH.is_file() or not BIN_PATH.is_file():
         raise SystemExit("Run `python compile.py` first to create abis/ and artifacts/.")
-
-    rpc = "http://localhost:8545"
-    pk_raw =  "0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133"
+    rpc = "https://services.polkadothub-rpc.com/testnet"
+    pk_raw = os.getenv("PRIVATE_KEY", "")
+    if not pk_raw:
+        raise SystemExit("PRIVATE_KEY is not set")
 
     pk = _format_key(pk_raw)
     abi, _ = _load_abi_bytecode()
