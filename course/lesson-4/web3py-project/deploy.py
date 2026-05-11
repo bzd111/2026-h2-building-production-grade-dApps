@@ -2,6 +2,10 @@ from web3 import Web3
 from web3.exceptions import TransactionNotFound
 import json
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 ARTIFACTS_DIR = Path(__file__).parent
 ABI_DIR = ARTIFACTS_DIR / "abis"
@@ -101,8 +105,8 @@ def deploy(config):
 
 if __name__ == "__main__":
     deployment_config = {
-        "rpc_url": "http://localhost:8545",
-        "private_key": "0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133"
+        "rpc_url": "https://services.polkadothub-rpc.com/testnet",
+        "private_key": os.getenv("PRIVATE_KEY")
     }
 
     deploy(deployment_config)
